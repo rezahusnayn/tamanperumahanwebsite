@@ -47,20 +47,22 @@ Utiliti (header/footer sahaja, bukan menu utama):
 **Sebab susunan ini:**
 - **Pengumuman diletakkan di bawah "Aktiviti & Berita"** dan bukan sebagai menu sendiri. Ini mengekalkan menu pada 6 item. Pengumuman terkini juga dipaparkan di Laman Utama dan dalam Capaian Pantas.
 - **Peta dan Fasiliti diletakkan di bawah "Tentang Taman"** kerana kedua-duanya ialah maklumat tetap tentang taman.
-- **Kontak Kecemasan sengaja diulang di 4 tempat:** butang merah di bar atas, jubin pertama Capaian Pantas, menu Hubungi dan footer. Inilah maklumat yang paling penting untuk warga emas.
+- **Kontak Kecemasan diulang di 3 tempat:** jubin merah pertama dalam Capaian Pantas, menu Hubungi dan footer. Inilah maklumat yang paling penting untuk warga emas.
 - **Label menggunakan perkataan harian** seperti "Dokumen" dan "Hubungi", bukan istilah teknikal seperti "Repositori" atau "Portal".
 
 ## 2. Corak navigasi
 
 | Elemen | Telefon (< 1024px, diuji pada 375px) | Desktop (≥ 1024px) |
 |---|---|---|
-| Bar atas | Butang merah **Kecemasan** + butang saiz teks **A / A+ / A++** | Sama, dengan label "Saiz teks" |
-| Header | Logo + nama taman, butang **Cari** dan **Menu** (ikon + teks, 48px). Header melekat di atas ketika skrol | Logo + Cari pada baris 1, menu utama pada baris 2 |
+| Header | Logo + nama taman, butang **Cari** dan **Menu** (ikon + teks, 48px). Header melekat di atas ketika skrol | Logo + **bar carian besar** (60px) pada baris 1, menu utama pada baris 2 |
+| Carian | Laman Utama ada bar carian besar (60px). Carian di header disembunyikan di Laman Utama supaya tidak berulang | Sama |
 | Menu utama | Laci dari kanan, lebar penuh. Setiap bahagian ialah akordion. Bahagian semasa dibuka secara automatik dan halaman semasa diserlahkan | Dropdown yang dibuka dengan **klik** (bukan hover). Ada penerangan ringkas dan pautan "Ringkasan …" |
-| Capaian pantas | Grid jubin 2 lajur di Laman Utama (8 jubin besar) | Grid 4 lajur |
+| Capaian pantas | Grid jubin 2 lajur di Laman Utama (6 jubin besar) | Grid 3 lajur |
 | Breadcrumb | Ada pada semua halaman kecuali Utama, contohnya `Utama › Dokumen › Laporan AGM` | Sama |
-| Navigasi bahagian | Senarai "halaman lain dalam bahagian ini" di bawah kandungan | Bar sisi yang melekat di sebelah kanan |
-| Footer | Alamat dan kontak, pautan kecemasan, semua sub-halaman mengikut bahagian, Peta Laman, Privasi | Sama, dalam lajur |
+| Navigasi bahagian | Tiada. Breadcrumb dan butang Menu sudah memadai, jadi halaman lebih pendek | Bar sisi yang melekat di sebelah kanan |
+| Footer | Alamat dan kontak, pautan kecemasan, 5 pautan bahagian sahaja, Peta Laman, Privasi | Sama, dalam lajur |
+
+**Laman Utama dipendekkan kepada 3 bahagian sahaja:** salam alu-aluan dengan carian, Capaian Pantas (6 jubin) dan 2 pengumuman terkini. Kad "Terokai Laman" dibuang kerana mengulang menu.
 
 **Mengapa tiada menu mega:** setiap bahagian hanya ada 3–5 pautan, jadi dropdown biasa sudah memadai dan kurang mengelirukan. Menu mega hanya berbaloi jika satu bahagian mempunyai lebih 8 pautan.
 
@@ -68,7 +70,7 @@ Utiliti (header/footer sahaja, bukan menu utama):
 
 ## 3. Kebolehcapaian yang telah dibina
 
-- Teks asas 18px, dan boleh dibesarkan kepada 20px atau 22px melalui butang A+ / A++. Pilihan ini disimpan dalam pelayar.
+- Teks asas 18px. Pengguna masih boleh membesarkan teks menggunakan zum pelayar atau tetapan telefon.
 - Semua sasaran sentuh sekurang-kurangnya 44×44px. Pautan menu dan akordion setinggi 48–52px.
 - Fon Atkinson Hyperlegible, yang direka khas untuk pembaca dengan penglihatan rendah. Kontras teks ≥ 4.5:1.
 - Pautan "Langkau ke kandungan utama", cincin fokus yang jelas, dan `aria-current` pada halaman semasa.
@@ -77,17 +79,17 @@ Utiliti (header/footer sahaja, bukan menu utama):
 - Setiap kali halaman bertukar, fokus dialihkan ke tajuk H1 supaya pembaca skrin tahu halaman sudah berubah.
 - Animasi dimatikan jika pengguna memilih `prefers-reduced-motion`.
 
-## 4. Hasil semakan pelayar (21 Nov 2026)
+## 4. Hasil semakan pelayar (22 Nov 2026)
 
 | Semakan | 375px | 1024px | 1280px |
 |---|---|---|---|
 | Ralat console | Tiada | Tiada | Tiada |
-| Skrol ke tepi (semua halaman, 3 saiz teks) | Tiada | Tiada | Tiada |
+| Skrol ke tepi (semua halaman) | Tiada | Tiada | Tiada |
 | Sasaran < 44px | Tiada | – | Tiada |
 | Butang bertindih | Tiada | – | Tiada |
 | Papan kekunci: dropdown, laci, Esc, pemulangan fokus | Lulus | – | Lulus |
 
-Nota: pada 1024px dengan saiz teks A++, menu desktop berbalut menjadi 2 baris. Ia masih boleh digunakan tanpa skrol ke tepi.
+Carian diuji dari Laman Utama dan header, dan ia membuka halaman Cari dengan keputusan.
 
 ## 5. Cara membuka prototaip
 

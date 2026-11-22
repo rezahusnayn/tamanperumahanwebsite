@@ -11,8 +11,8 @@
     home: {
       needs: [
         'Nama rasmi taman dan nama persatuan penduduk (seperti dalam pendaftaran)',
-        'Ayat alu-aluan ringkas (1–2 ayat) untuk bahagian atas laman utama',
-        '1 gambar utama taman (mendatar, resolusi tinggi, dengan kebenaran guna)',
+        'Ayat alu-aluan ringkas, 1 ayat (pilihan)',
+        '1 gambar utama taman (pilihan; mendatar, resolusi tinggi, dengan kebenaran guna)',
         'Mesej ringkas daripada Pengerusi (pilihan, 50–100 patah perkataan)'
       ]
     },
@@ -248,9 +248,7 @@
       { label: 'Peta Taman', href: '#/tentang/peta', icon: 'map' },
       { label: 'Kalendar Aktiviti', href: '#/aktiviti/kalendar', icon: 'calendar' },
       { label: 'Buat Aduan', href: '#/hubungi/aduan', icon: 'message' },
-      { label: 'Borang', href: '#/dokumen/borang', icon: 'file' },
-      { label: 'Fasiliti', href: '#/tentang/fasiliti', icon: 'building' },
-      { label: 'Yuran & Keahlian', href: '#/jawatankuasa/keahlian', icon: 'users' }
+      { label: 'Borang', href: '#/dokumen/borang', icon: 'file' }
     ],
 
     global: {

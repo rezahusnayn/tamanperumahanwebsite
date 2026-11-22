@@ -40,6 +40,13 @@
     });
   }
 
+  // Beri setiap kad indeks (--i) supaya ia muncul satu demi satu (maks. 8 langkah)
+  function stagger(root) {
+    $$('.tile-grid > li, .card-grid > li, .news-grid > li, .result-list > li', root).forEach(function (li, i) {
+      li.style.setProperty('--i', Math.min(i % 12, 8));
+    });
+  }
+
   var href = function (sec, page) { return '#/' + sec.slug + (page ? '/' + page.slug : ''); };
 
   /* ---------- Bina menu desktop, laci telefon dan footer daripada data ---------- */
@@ -79,10 +86,8 @@
   }
 
   function buildFooter() {
-    var cols = S.sections.map(function (sec) {
-      return '<div class="f-col"><h2 class="f-head">' + esc(sec.label) + '</h2><ul>' +
-        sec.pages.map(function (p) { return '<li><a href="' + href(sec, p) + '">' + esc(p.label) + '</a></li>'; }).join('') +
-        '</ul></div>';
+    var links = S.sections.map(function (sec) {
+      return '<li><a href="' + href(sec) + '">' + esc(sec.label) + '</a></li>';
     }).join('');
     $('#site-footer').innerHTML =
       '<div class="wrap">' +
@@ -91,7 +96,7 @@
       '<p class="ph-inline">[Alamat surat-menyurat persatuan]</p>' +
       '<p class="ph-inline">[Emel rasmi] · [No. telefon rasmi]</p>' +
       '<p><a class="f-sos" href="#/hubungi/kecemasan">' + icon('phone') + 'Senarai nombor kecemasan</a></p></div>' +
-      '<div class="f-cols">' + cols + '</div></div>' +
+      '<ul class="f-links">' + links + '</ul></div>' +
       '<div class="f-bottom"><ul class="f-legal">' +
       '<li><a href="#/peta-laman">Peta Laman</a></li><li><a href="#/privasi">Dasar Privasi &amp; Penafian</a></li><li><a href="#/cari">Cari</a></li></ul>' +
       '<p>© [Tahun] ' + esc(S.org) + ' · No. pendaftaran: [PPM-xxx-xx-xxxxxxxx] · Dikemas kini: [tarikh]</p></div>' +
@@ -127,34 +132,33 @@
   }
 
   /* ---------- Halaman ---------- */
+  function searchForm(id, value) {
+    return '<form class="search-form" role="search" data-search><label for="' + id + '">Apa yang anda cari?</label>' +
+      '<div class="search-row"><input id="' + id + '" type="search" autocomplete="off" placeholder="cth. yuran, dewan" value="' + esc(value || '') + '">' +
+      '<button type="submit" class="btn" data-icon="search">Cari</button></div></form>';
+  }
+
   function homeView() {
     var quick = S.quickLinks.map(function (q) {
       return '<li><a class="tile' + (q.tone === 'sos' ? ' tile-sos' : '') + '" href="' + q.href + '">' +
         '<span class="tile-icon">' + icon(q.icon) + '</span><span class="tile-label">' + esc(q.label) + '</span></a></li>';
     }).join('');
-    var news = [1, 2, 3].map(function (n) {
+    var news = [1, 2].map(function (n) {
       return '<li class="news-card"><p class="news-date ph-inline">[Tarikh]</p><h3>[Tajuk pengumuman ' + n + ']</h3>' +
         '<p class="ph-inline">[Ringkasan 1–2 ayat]</p><a href="#/aktiviti/pengumuman">Baca pengumuman<span class="visually-hidden"> ' + n + '</span></a></li>';
-    }).join('');
-    var sections = S.sections.map(function (sec) {
-      return '<li><a class="nav-card" href="' + href(sec) + '"><span class="nav-card-title">' + icon(sec.icon) + esc(sec.label) + '</span>' +
-        '<span class="nav-card-desc">' + esc(sec.desc) + '</span>' + icon('chevronRight', 'icon nav-card-arrow') + '</a></li>';
     }).join('');
     return {
       title: 'Utama',
       html:
-        '<section class="hero"><div class="wrap hero-inner"><div class="hero-text">' +
+        '<section class="hero"><div class="wrap"><div class="hero-inner">' +
         '<p class="eyebrow">Laman rasmi ' + esc(S.org) + '</p>' +
         '<h1>Selamat datang ke ' + esc(S.name) + '</h1>' +
-        '<p class="lead ph-inline">[Ayat alu-aluan ringkas daripada pihak taman]</p></div>' +
-        phImage('suasana taman', '4 / 3') + '</div></section>' +
+        searchForm('home-q') + '</div></div></section>' +
         '<div class="wrap page-pad">' +
         '<section aria-labelledby="h-quick"><h2 id="h-quick">Capaian Pantas</h2><ul class="tile-grid">' + quick + '</ul></section>' +
         '<section aria-labelledby="h-news" class="mt"><div class="sec-head"><h2 id="h-news">Pengumuman Terkini</h2>' +
         '<a class="more-link" href="#/aktiviti/pengumuman">Semua pengumuman' + icon('chevronRight') + '</a></div>' +
         '<ul class="news-grid">' + news + '</ul></section>' +
-        '<section aria-labelledby="h-sec" class="mt"><h2 id="h-sec">Terokai Laman</h2><ul class="card-grid">' + sections + '</ul></section>' +
-        '<div class="mt">' + needsBlock(S.home.needs, 'Kandungan Laman Utama') + '</div>' +
         '</div>'
     };
   }
@@ -196,15 +200,12 @@
     return list;
   }
 
-  function searchView() {
+  function searchView(query) {
     return {
       title: 'Cari',
       html: '<div class="wrap page-pad narrow">' + crumbs([{ label: 'Utama', href: '#/' }, { label: 'Cari' }]) +
         '<h1>Cari dalam laman</h1>' +
-        '<form class="search-form" role="search" id="search-form"><label for="q">Apa yang anda cari?</label>' +
-        '<div class="search-row"><input id="q" name="q" type="search" autocomplete="off" aria-describedby="q-help">' +
-        '<button type="submit" class="btn" data-icon="search">Cari</button></div>' +
-        '<p id="q-help" class="help">Contoh: yuran, dewan, sampah, AGM</p></form>' +
+        searchForm('q', query) +
         '<p id="search-status" class="search-status" role="status" aria-live="polite"></p>' +
         '<ul class="result-list" id="results"></ul></div>',
       after: function () {
@@ -217,10 +218,11 @@
             return '<li><a class="result" href="' + r.href + '"><span class="result-title">' + esc(r.label) + '</span>' +
               '<span class="result-path">' + esc(r.path) + '</span><span class="result-desc">' + esc(r.desc) + '</span></a></li>';
           }).join('');
+          stagger($('#results'));
           $('#search-status').textContent = q ? (res.length ? res.length + ' halaman dijumpai.' : 'Tiada halaman dijumpai. Cuba perkataan lain, atau lihat Peta Laman.') : '';
         }
         input.addEventListener('input', run);
-        $('#search-form').addEventListener('submit', function (e) { e.preventDefault(); run(); });
+        run();
       }
     };
   }
@@ -264,10 +266,12 @@
   function route() {
     var h = location.hash;
     if (h && h.indexOf('#/') !== 0) return null; // abaikan #kandungan dsb.
-    var parts = h.replace(/^#\/?/, '').split('/').filter(Boolean);
+    var qs = h.split('?')[1] || '';
+    var parts = h.split('?')[0].replace(/^#\/?/, '').split('/').filter(Boolean);
+    var query = new URLSearchParams(qs).get('q') || '';
     var view;
     if (!parts.length) view = homeView();
-    else if (parts[0] === 'cari') view = searchView();
+    else if (parts[0] === 'cari') view = searchView(query);
     else if (parts[0] === 'peta-laman') view = sitemapView();
     else if (parts[0] === 'privasi') view = privacyView();
     else {
@@ -287,8 +291,16 @@
     if (!r) return;
     main.innerHTML = r.view.html;
     decorate(main);
+    // Animasi masuk halaman: mula semula setiap kali halaman bertukar
+    main.classList.remove('page-enter');
+    void main.offsetWidth;
+    main.classList.add('page-enter');
+    stagger(main);
     document.title = r.view.title + ' — ' + S.name;
     markActive(r.parts.join('/'), r.parts[0] || '');
+    // Laman Utama sudah ada bar carian besar, jadi carian di header disembunyikan di situ.
+    document.body.classList.toggle('is-home', !r.parts.length);
+    $('#hdr-q').value = '';
     closeDropdowns();
     closeDrawer(false);
     if (r.view.after) r.view.after();
@@ -352,7 +364,7 @@
   /* ---------- Laci telefon ---------- */
   var drawer = $('#drawer');
   var menuBtn = $('#menu-btn');
-  var outside = ['#topbar', '#site-header', '#kandungan', '#site-footer', '.proto-banner', '.skip-link'];
+  var outside = ['#site-header', '#kandungan', '#site-footer', '.skip-link'];
   var drawerOpen = false;
   var closeTimer;
 
@@ -397,16 +409,21 @@
     if (openBtn) { closeDropdowns(); openBtn.focus(); }
   });
 
-  /* ---------- Saiz teks ---------- */
-  function setSize(n) {
-    document.documentElement.setAttribute('data-text', n);
-    $$('.ts-btn').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-size') === n)); });
-    try { localStorage.setItem('taman-text', n); } catch (err) { /* abaikan */ }
-  }
-  $$('.ts-btn').forEach(function (b) { b.addEventListener('click', function () { setSize(b.getAttribute('data-size')); }); });
-  var saved = '1';
-  try { saved = localStorage.getItem('taman-text') || '1'; } catch (err) { /* abaikan */ }
-  setSize(saved);
+  /* ---------- Borang carian (header, laman utama, halaman Cari) ---------- */
+  document.addEventListener('submit', function (e) {
+    var f = e.target.closest('[data-search]');
+    if (!f) return;
+    e.preventDefault();
+    var q = f.querySelector('input').value.trim();
+    var target = '#/cari' + (q ? '?q=' + encodeURIComponent(q) : '');
+    if (location.hash === target) { var inp = $('#q'); if (inp) inp.focus(); } else location.hash = target;
+  });
+
+  /* ---------- Bayang header ketika skrol ---------- */
+  var header = $('#site-header');
+  function onScroll() { header.classList.toggle('is-scrolled', window.scrollY > 4); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
   /* ---------- Pautan langkau ---------- */
   $('[data-skip]').addEventListener('click', function (e) { e.preventDefault(); main.focus(); main.scrollIntoView(); });

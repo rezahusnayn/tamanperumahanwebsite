@@ -13,20 +13,6 @@
 <body>
   <a class="skip-link" href="#kandungan" data-skip>Langkau ke kandungan utama</a>
 
-  <div class="proto-banner" role="note">PROTOTAIP — kandungan <span class="ph-tag">PLACEHOLDER</span> belum disahkan pihak taman.</div>
-
-  <div class="topbar" id="topbar">
-    <div class="wrap topbar-inner">
-      <a class="sos-link" href="#/hubungi/kecemasan" data-icon="phone"><span class="hide-sm">Nombor </span>Kecemasan</a>
-      <div class="textsize" role="group" aria-labelledby="textsize-label">
-        <span id="textsize-label" class="textsize-label">Saiz teks</span>
-        <button type="button" class="ts-btn" data-size="1" aria-pressed="true" aria-label="Saiz teks biasa">A</button>
-        <button type="button" class="ts-btn" data-size="2" aria-pressed="false" aria-label="Saiz teks besar">A+</button>
-        <button type="button" class="ts-btn" data-size="3" aria-pressed="false" aria-label="Saiz teks paling besar">A++</button>
-      </div>
-    </div>
-  </div>
-
   <header class="site-header" id="site-header">
     <div class="wrap header-row">
       <a class="brand" href="#/" aria-label="[Nama Taman] — ke Laman Utama">
@@ -36,8 +22,15 @@
           <span class="brand-sub">Persatuan Penduduk</span>
         </span>
       </a>
+      <form class="hdr-search" role="search" data-search>
+        <label for="hdr-q" class="visually-hidden">Cari dalam laman</label>
+        <div class="search-row">
+          <input id="hdr-q" type="search" placeholder="Cari: yuran, dewan, AGM…" autocomplete="off">
+          <button type="submit" class="btn" data-icon="search">Cari</button>
+        </div>
+      </form>
       <div class="header-actions">
-        <a class="hdr-btn" href="#/cari" data-icon="search">Cari</a>
+        <a class="hdr-btn hdr-cari" href="#/cari" data-icon="search">Cari</a>
         <button type="button" class="hdr-btn menu-btn" id="menu-btn" aria-expanded="false" aria-controls="drawer" data-icon="menu">Menu</button>
       </div>
     </div>
