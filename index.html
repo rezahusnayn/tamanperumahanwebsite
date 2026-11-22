@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[Nama Taman] — Prototaip Navigasi</title>
+  <meta name="description" content="Prototaip navigasi laman web komuniti taman perumahan. Kandungan ialah placeholder.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#kandungan" data-skip>Langkau ke kandungan utama</a>
+
+  <div class="proto-banner" role="note">PROTOTAIP — kandungan <span class="ph-tag">PLACEHOLDER</span> belum disahkan pihak taman.</div>
+
+  <div class="topbar" id="topbar">
+    <div class="wrap topbar-inner">
+      <a class="sos-link" href="#/hubungi/kecemasan" data-icon="phone"><span class="hide-sm">Nombor </span>Kecemasan</a>
+      <div class="textsize" role="group" aria-labelledby="textsize-label">
+        <span id="textsize-label" class="textsize-label">Saiz teks</span>
+        <button type="button" class="ts-btn" data-size="1" aria-pressed="true" aria-label="Saiz teks biasa">A</button>
+        <button type="button" class="ts-btn" data-size="2" aria-pressed="false" aria-label="Saiz teks besar">A+</button>
+        <button type="button" class="ts-btn" data-size="3" aria-pressed="false" aria-label="Saiz teks paling besar">A++</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header" id="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="#/" aria-label="[Nama Taman] — ke Laman Utama">
+        <span class="brand-logo" aria-hidden="true">LOGO</span>
+        <span class="brand-text">
+          <span class="brand-name">[Nama Taman]</span>
+          <span class="brand-sub">Persatuan Penduduk</span>
+        </span>
+      </a>
+      <div class="header-actions">
+        <a class="hdr-btn" href="#/cari" data-icon="search">Cari</a>
+        <button type="button" class="hdr-btn menu-btn" id="menu-btn" aria-expanded="false" aria-controls="drawer" data-icon="menu">Menu</button>
+      </div>
+    </div>
+    <nav class="mainnav" id="mainnav" aria-label="Menu utama">
+      <div class="wrap"><ul class="mainnav-list" id="mainnav-list"></ul></div>
+    </nav>
+  </header>
+
+  <main id="kandungan" tabindex="-1"></main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <div class="drawer" id="drawer" hidden>
+    <div class="drawer-backdrop" data-close></div>
+    <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+      <div class="drawer-head">
+        <h2 id="drawer-title" class="drawer-title">Menu</h2>
+        <button type="button" class="hdr-btn" data-close data-icon="x">Tutup</button>
+      </div>
+      <nav aria-label="Menu utama (telefon)"><ul class="drawer-list" id="drawer-list"></ul></nav>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
